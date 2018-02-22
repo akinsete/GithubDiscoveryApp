@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "gda.com.githubdiscoveryapp"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+}
+
+ext {
+    supportLibraryVersion = '26.1.0'
+    retrofitVersion = '2.3.0'
+    retrofitConvertersVersion = '2.1.0'
+    gsonVersion = '2.6.1'
+    picassoVersion = '2.5.2'
+    circleImageVersion = '2.1.0'
+    butterKnifeVersion = '8.8.1'
+    daggerVersion = '2.14.1'
+    rxJavaVersion = '2.3'
+    okhttpVersion = '3.9.1'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    ////// Support Libraries //////////
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation "com.android.support:support-v4:$supportLibraryVersion"
+
+    ///// Network Libraries ///////
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitConvertersVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitConvertersVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitConvertersVersion"
+
+    ///// Other Libraries ////
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "de.hdodenhof:circleimageview:$circleImageVersion"
+    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+
+    ////// Dagger II ////
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
