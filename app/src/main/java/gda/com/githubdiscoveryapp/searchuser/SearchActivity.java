@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import gda.com.githubdiscoveryapp.App;
 import gda.com.githubdiscoveryapp.R;
+import gda.com.githubdiscoveryapp.data.models.Search;
 
 public class SearchActivity extends AppCompatActivity implements SearchActivityMVP.View {
 

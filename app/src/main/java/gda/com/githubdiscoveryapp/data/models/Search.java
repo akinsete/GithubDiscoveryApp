@@ -1,4 +1,4 @@
-package gda.com.githubdiscoveryapp.searchuser;
+package gda.com.githubdiscoveryapp.data.models;
 
 /**
  * Created by sundayakinsete on 21/02/2018.

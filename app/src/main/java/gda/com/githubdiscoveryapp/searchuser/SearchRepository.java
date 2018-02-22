@@ -2,6 +2,8 @@ package gda.com.githubdiscoveryapp.searchuser;
 
 import java.util.List;
 
+import gda.com.githubdiscoveryapp.data.models.Search;
+
 /**
  * Created by sundayakinsete on 21/02/2018.
  */

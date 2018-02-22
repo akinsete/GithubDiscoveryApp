@@ -29,6 +29,7 @@ ext {
     retrofitConvertersVersion = '2.1.0'
     gsonVersion = '2.6.1'
     picassoVersion = '2.5.2'
+    playServicesVersion = '11.8.0'
     circleImageVersion = '2.1.0'
     butterKnifeVersion = '8.8.1'
     daggerVersion = '2.14.1'
@@ -45,6 +46,9 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
     implementation "com.android.support:support-v4:$supportLibraryVersion"
+
+    implementation "com.google.android.gms:play-services-location:$playServicesVersion"
+
 
     ///// Network Libraries ///////
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"

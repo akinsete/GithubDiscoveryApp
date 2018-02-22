@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import gda.com.githubdiscoveryapp.data.models.Search;
+
 /**
  * Created by sundayakinsete on 21/02/2018.
  */
