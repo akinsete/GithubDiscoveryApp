@@ -1,5 +1,7 @@
 package gda.com.githubdiscoveryapp.searchuser;
 
+import android.util.Log;
+
 import java.util.List;
 
 import gda.com.githubdiscoveryapp.data.models.Repo;
@@ -17,6 +19,13 @@ public class SearchModel implements SearchActivityMVP.Model {
         this.repository = repository;
     }
 
+
+    @Override
+    public void getAddressOfLocation(long latitude, long longitude, ReverseGeocodeCallback reverseGeocodeCallback) {
+        Log.e("Tag",String.valueOf(latitude));
+        Log.e("Tag",String.valueOf(longitude));
+        reverseGeocodeCallback.address("25 Shomolu Street");
+    }
 
     @Override
     public void saveSearch(String username, long latitude, long longitude, String address) {

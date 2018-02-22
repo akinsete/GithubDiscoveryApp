@@ -35,6 +35,7 @@ ext {
     daggerVersion = '2.14.1'
     rxJavaVersion = '2.3'
     okhttpVersion = '3.9.1'
+    mockitoVersion = '2.7.22'
 }
 
 dependencies {
@@ -73,6 +74,8 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

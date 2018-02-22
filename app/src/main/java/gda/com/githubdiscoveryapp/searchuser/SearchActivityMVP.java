@@ -15,16 +15,22 @@ public interface SearchActivityMVP {
         String getSearchText();
 
         void showNoPreviousSearch();
+
         void showInputError();
+
         void showSearchSavedMessage();
 
         void showSearchDialog();
+
         void hideSearchDialog();
 
         void showPreviousSearch(List<Search> previousSearch);
+
+
     }
 
     interface Presenter{
+
 
         void setView(SearchActivityMVP.View view);
 
@@ -32,9 +38,15 @@ public interface SearchActivityMVP {
 
         void getPreviousSearch();
 
+        void setUserLocation(long latitude,long longitude);
+
+        //void navigateToRepoDetails(List<Repo> repos);
+
     }
 
     interface Model{
+
+        void getAddressOfLocation(long latitude, long longitude, ReverseGeocodeCallback reverseGeocodeCallback);
 
         void saveSearch(String username, long latitude, long longitude, String address);
 

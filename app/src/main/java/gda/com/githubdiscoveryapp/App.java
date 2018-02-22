@@ -2,6 +2,7 @@ package gda.com.githubdiscoveryapp;
 
 import android.app.Application;
 
+import gda.com.githubdiscoveryapp.location.LocationModule;
 import gda.com.githubdiscoveryapp.searchuser.SearchModule;
 
 /**
@@ -20,6 +21,7 @@ public class App extends Application{
         component = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .searchModule(new SearchModule())
+                .locationModule(new LocationModule())
                 .build();
 
     }
