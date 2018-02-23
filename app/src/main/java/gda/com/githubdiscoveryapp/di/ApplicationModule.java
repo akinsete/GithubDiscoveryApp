@@ -1,4 +1,4 @@
-package gda.com.githubdiscoveryapp;
+package gda.com.githubdiscoveryapp.di;
 
 import android.app.Application;
 import android.content.Context;

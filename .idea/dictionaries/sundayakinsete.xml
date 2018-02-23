@@ -1,10 +1,18 @@
 <component name="ProjectDictionaryState">
   <dictionary name="sundayakinsete">
     <words>
+      <w>geocoded</w>
+      <w>geocoder</w>
       <w>githubdiscoveryapp</w>
       <w>gson</w>
+      <w>latlng</w>
       <w>localstorage</w>
+      <w>previoussearch</w>
+      <w>recyclerview</w>
+      <w>repodetails</w>
+      <w>searchuser</w>
       <w>thesame</w>
+      <w>usersrepolist</w>
     </words>
   </dictionary>
 </component>

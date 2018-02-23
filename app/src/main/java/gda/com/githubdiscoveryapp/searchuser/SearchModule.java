@@ -4,7 +4,8 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
-import gda.com.githubdiscoveryapp.App;
+import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
+import gda.com.githubdiscoveryapp.data.github.GithubService;
 
 /**
  * Created by sundayakinsete on 21/02/2018.
@@ -22,8 +23,8 @@ public class SearchModule {
 
 
     @Provides
-    public SearchActivityMVP.Model provideSearchActivityModel(SearchRepository searchRepository){
-        return new SearchModel(searchRepository);
+    public SearchActivityMVP.Model provideSearchActivityModel(SearchRepository searchRepository, GeocoderService geocoderService, GithubService githubService){
+        return new SearchModel(searchRepository,geocoderService,githubService);
     }
 
 
@@ -31,4 +32,7 @@ public class SearchModule {
     public SearchRepository provideSearchRepository(Context context){
         return new MemoryRepository(context);
     }
+
+
+
 }

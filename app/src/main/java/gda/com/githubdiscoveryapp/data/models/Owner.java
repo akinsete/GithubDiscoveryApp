@@ -4,7 +4,9 @@ package gda.com.githubdiscoveryapp.data.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Owner {
+import java.io.Serializable;
+
+public class Owner implements Serializable{
 
     @SerializedName("login")
     @Expose

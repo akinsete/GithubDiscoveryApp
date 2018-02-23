@@ -21,7 +21,7 @@ import gda.com.githubdiscoveryapp.data.models.Search;
 public class MemoryRepository extends SQLiteOpenHelper implements SearchRepository {
 
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     // Database Name
     private static final String DATABASE_NAME = "previous_search";
     // previous search table name
@@ -63,7 +63,7 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
     @Override // Getting All Searches
     public List<Search> getPreviousSearches() {
         List<Search> searches = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_SEARCH;
+        String selectQuery = "SELECT * FROM " + TABLE_SEARCH + " ORDER BY id DESC";
 
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -72,14 +72,16 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
 
         if (cursor.moveToFirst()) {
             do{
-                Search search = new Search(
-                        cursor.getString(cursor.getColumnIndex(KEY_USERNAME)),
-                        Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_LATITUDE))),
-                        Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_LONGITUDE))),
-                        cursor.getString(cursor.getColumnIndex(KEY_ADDRESS))
-                );
-                search.setDate(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_DATE))));
-                searches.add(search);
+                if(cursor != null) {
+                    Search search = new Search(
+                            cursor.getString(cursor.getColumnIndex(KEY_USERNAME)),
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_LATITUDE))),
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_LONGITUDE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_ADDRESS))
+                    );
+                    search.setDate(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_DATE))));
+                    searches.add(search);
+                }
             }while (cursor.moveToNext());
         }
 
@@ -90,16 +92,31 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
     public void saveSearch(Search search) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME, search.getUsername());
-        values.put(KEY_ADDRESS, search.getAddress());
-        values.put(KEY_LONGITUDE, search.getLongitude());
-        values.put(KEY_LATITUDE, search.getLatitude());
-        values.put(KEY_DATE, getCurrentTimeInMilli());
+        if(!checkIsDataAlreadyInDBorNot(search.getUsername())){
+            ContentValues values = new ContentValues();
+            values.put(KEY_USERNAME, search.getUsername());
+            values.put(KEY_ADDRESS, search.getAddress());
+            values.put(KEY_LONGITUDE, search.getLongitude());
+            values.put(KEY_LATITUDE, search.getLatitude());
+            values.put(KEY_DATE, getCurrentTimeInMilli());
 
-        // Inserting Row
-        long inserted = db.insert(TABLE_SEARCH, null, values);
-        db.close(); // Closing database connection
+            db.insert(TABLE_SEARCH, null, values);
+            db.close(); // Closing database connection
+        }
+    }
+
+
+    public  boolean checkIsDataAlreadyInDBorNot(String fieldValue) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String Query = "Select * from " + TABLE_SEARCH + " where username = '" + fieldValue + "'";
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
     }
 
 

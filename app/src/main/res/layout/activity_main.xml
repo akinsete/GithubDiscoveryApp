@@ -32,7 +32,7 @@
                 android:textColor="#FFFFFF"
                 android:id="@+id/btn_search"
                 android:layout_alignParentRight="true"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
         </RelativeLayout>
@@ -43,6 +43,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

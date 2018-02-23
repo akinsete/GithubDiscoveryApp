@@ -4,6 +4,8 @@ import android.util.Log;
 
 import java.util.List;
 
+import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
+import gda.com.githubdiscoveryapp.data.github.GithubService;
 import gda.com.githubdiscoveryapp.data.models.Repo;
 import gda.com.githubdiscoveryapp.data.models.Search;
 
@@ -14,17 +16,13 @@ import gda.com.githubdiscoveryapp.data.models.Search;
 public class SearchModel implements SearchActivityMVP.Model {
 
     SearchRepository repository;
+    GeocoderService geocoderService;
+    GithubService githubService;
 
-    public SearchModel(SearchRepository repository) {
+    public SearchModel(SearchRepository repository,GeocoderService geocoderService,GithubService githubService) {
         this.repository = repository;
-    }
-
-
-    @Override
-    public void getAddressOfLocation(long latitude, long longitude, ReverseGeocodeCallback reverseGeocodeCallback) {
-        Log.e("Tag",String.valueOf(latitude));
-        Log.e("Tag",String.valueOf(longitude));
-        reverseGeocodeCallback.address("25 Shomolu Street");
+        this.geocoderService = geocoderService;
+        this.githubService = githubService;
     }
 
     @Override
@@ -38,7 +36,12 @@ public class SearchModel implements SearchActivityMVP.Model {
     }
 
     @Override
-    public List<Repo> getGithubRepositories(String username) {
-        return null;
+    public void getGithubRepositories(String username,GithubService.getUserRepoListCallBack callBack) {
+        githubService.getUserRepo(username,callBack);
+    }
+
+    @Override
+    public void getReverseGeocodedAddress(String location, GeocoderService.GetFormattedAddressCallback callback) {
+        geocoderService.getFormattedAddress(location,callback);
     }
 }

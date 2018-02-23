@@ -5,5 +5,20 @@ package gda.com.githubdiscoveryapp.repodetails;
  */
 
 public interface RepoDetailActivityMVP {
+
+
+    interface View{
+
+    }
+
+    interface Presenter{
+
+        void setView(RepoDetailActivityMVP.View view);
+    }
+
+
+    interface Model{
+
+    }
     
 }

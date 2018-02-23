@@ -1,7 +1,10 @@
 package gda.com.githubdiscoveryapp.searchuser;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
+import gda.com.githubdiscoveryapp.data.github.GithubService;
 import gda.com.githubdiscoveryapp.data.models.Repo;
 import gda.com.githubdiscoveryapp.data.models.Search;
 
@@ -12,6 +15,7 @@ import gda.com.githubdiscoveryapp.data.models.Search;
 public interface SearchActivityMVP {
 
     interface View{
+
         String getSearchText();
 
         void showNoPreviousSearch();
@@ -26,7 +30,9 @@ public interface SearchActivityMVP {
 
         void showPreviousSearch(List<Search> previousSearch);
 
+        void navigateToRepoListView(ArrayList<Repo> repos);
 
+        void showNoUserNameFound();
     }
 
     interface Presenter{
@@ -40,18 +46,17 @@ public interface SearchActivityMVP {
 
         void setUserLocation(long latitude,long longitude);
 
-        //void navigateToRepoDetails(List<Repo> repos);
-
     }
 
     interface Model{
 
-        void getAddressOfLocation(long latitude, long longitude, ReverseGeocodeCallback reverseGeocodeCallback);
 
         void saveSearch(String username, long latitude, long longitude, String address);
 
         List<Search> previousSearches();
 
-        List<Repo> getGithubRepositories(String username);
+        void getGithubRepositories(String username, GithubService.getUserRepoListCallBack getUserRepoListCallBack);
+
+        void getReverseGeocodedAddress(String location, GeocoderService.GetFormattedAddressCallback callback);
     }
 }

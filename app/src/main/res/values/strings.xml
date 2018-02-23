@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">GithubDiscoveryApp</string>
     <string name="search">Search</string>
+    <string name="address">Address</string>
+    <string name="username">Username</string>
+    <string name="date_sample">May 12</string>
+    <string name="description">Description</string>
+    <string name="sample_language">Java</string>
 </resources>
