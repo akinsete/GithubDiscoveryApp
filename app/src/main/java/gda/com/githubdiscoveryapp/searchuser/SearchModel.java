@@ -35,6 +35,7 @@ public class SearchModel implements SearchActivityMVP.Model {
         return repository.getPreviousSearches();
     }
 
+
     @Override
     public void getGithubRepositories(String username,GithubService.getUserRepoListCallBack callBack) {
         githubService.getUserRepo(username,callBack);

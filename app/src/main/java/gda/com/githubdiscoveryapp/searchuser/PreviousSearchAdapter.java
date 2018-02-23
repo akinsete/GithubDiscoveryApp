@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.marlonlom.utilities.timeago.TimeAgo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +79,8 @@ public class PreviousSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             this.search = search;
             txt_address.setText(search.getAddress());
             txt_user_name.setText(search.getUsername());
-            txt_time.setText(String.valueOf(search.getDate()));
+            txt_time.setText(TimeAgo.using(search.getDate()));
+            //Log.e("date",String.valueOf(search.getDate()));
         }
 
         @Override

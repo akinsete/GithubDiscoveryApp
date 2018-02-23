@@ -21,7 +21,7 @@ import gda.com.githubdiscoveryapp.data.models.Search;
 public class MemoryRepository extends SQLiteOpenHelper implements SearchRepository {
 
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     // Database Name
     private static final String DATABASE_NAME = "previous_search";
     // previous search table name
@@ -121,6 +121,6 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
 
 
     protected long getCurrentTimeInMilli(){
-        return System.currentTimeMillis() / 1000;
+        return System.currentTimeMillis();
     }
 }

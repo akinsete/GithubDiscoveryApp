@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingLeft="3dp"
+    android:paddingRight="2dp"
     tools:context="gda.com.githubdiscoveryapp.searchuser.SearchActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_margin="5dp"
-        android:layout_height="50dp">
+        android:layout_margin="@dimen/search_view_round_margin"
+        app:cardCornerRadius="@dimen/search_view_radius"
+        android:layout_height="@dimen/search_view_height">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,7 +24,7 @@
             <EditText
                 android:id="@+id/search_text"
                 android:background="@color/white"
-                android:hint="enter username"
+                android:hint="@string/enter_username"
                 android:paddingLeft="@dimen/search_padding"
                 android:layout_width="match_parent"
                 android:layout_toLeftOf="@+id/btn_search"
@@ -33,6 +37,7 @@
                 android:id="@+id/btn_search"
                 android:layout_alignParentRight="true"
                 android:background="@color/colorAccent"
+                android:layout_margin="0dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
         </RelativeLayout>
