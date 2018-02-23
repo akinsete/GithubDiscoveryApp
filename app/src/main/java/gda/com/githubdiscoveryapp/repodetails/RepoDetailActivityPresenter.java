@@ -21,6 +21,13 @@ public class RepoDetailActivityPresenter implements RepoDetailActivityMVP.Presen
 
 
     @Override
+    public void buttonViewOnGithubClicked() {
+        if(view != null){
+            view.goViewRepoOnGithub();
+        }
+    }
+
+    @Override
     public void setView(RepoDetailActivityMVP.View view) {
         this.view = view;
     }

@@ -171,12 +171,12 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
 
     @Override
     public void showNoPreviousSearch() {
-        Toast.makeText(this,"No previous searched username available",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.no_previous_search_list,Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showInputError() {
-        Toast.makeText(this,"Enter github username",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.enter_user_name,Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -186,7 +186,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
 
     @Override
     public void showSearchDialog() {
-        progressDialog = ProgressDialog.show(this,null,"Searching...",true,true);
+        progressDialog = ProgressDialog.show(this,null,getString(R.string.searching),true,true);
     }
 
     @Override

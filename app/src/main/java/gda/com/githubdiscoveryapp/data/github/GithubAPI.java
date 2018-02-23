@@ -19,5 +19,5 @@ public interface GithubAPI {
     Observable<List<Repo>> listRepos(@Path("user") String user);
 
     @GET("repos/{user}/{repo}/issues")
-    Observable<List<Issue>> listRepoIssues(@Path("user") String user,@Path("repo") String repo);
+    rx.Observable<List<Issue>> listRepoIssues(@Path("user") String user, @Path("repo") String repo);
 }

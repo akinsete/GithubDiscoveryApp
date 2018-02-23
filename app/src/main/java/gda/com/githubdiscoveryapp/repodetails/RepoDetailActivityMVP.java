@@ -14,10 +14,14 @@ public interface RepoDetailActivityMVP {
 
     interface View{
 
+        void goViewRepoOnGithub();
+
         void displayRepoIssues(List<Issue> issues);
     }
 
     interface Presenter{
+
+        void buttonViewOnGithubClicked();
 
         void setView(RepoDetailActivityMVP.View view);
 

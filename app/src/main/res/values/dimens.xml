@@ -14,4 +14,9 @@
     <dimen name="button_text_size">17sp</dimen>
     <dimen name="search_view_round_margin">5dp</dimen>
     <dimen name="search_view_radius">25dp</dimen>
+    <dimen name="detail_header_height">400dp</dimen>
+    <dimen name="detail_header_padding">16dp</dimen>
+    <dimen name="button_padding">30dp</dimen>
+    <dimen name="issue_item_padding">10dp</dimen>
+    <dimen name="issue_item_user_name_text_size">12sp</dimen>
 </resources>

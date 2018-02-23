@@ -1,8 +1,6 @@
 package gda.com.githubdiscoveryapp.searchuser;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +33,7 @@ public class PreviousSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.previous_search_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_adapter_row_item,parent,false);
 
 
         return new SearchItemViewHolder(view);

@@ -1,5 +1,7 @@
 package gda.com.githubdiscoveryapp.data.github;
 
+import android.util.Log;
+
 import java.util.List;
 
 import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
@@ -9,12 +11,15 @@ import gda.com.githubdiscoveryapp.data.models.Repo;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by sundayakinsete on 22/02/2018.
  */
 
 public class GithubService {
+
+    private static final String TAG = "GithubService";
 
     private final GithubAPI githubApi;
 
@@ -52,12 +57,14 @@ public class GithubService {
 
                     @Override
                     public void onNext(List<Repo> value) {
+                        Log.e(TAG, String.valueOf(value));
                         callback.onSuccess(value);
                     }
 
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e(TAG, e.toString());
                         callback.onError();
                     }
 
@@ -76,29 +83,29 @@ public class GithubService {
      * @param callback
      */
     public void getRepoIssues(String username,String repo_name,final RepoIssuesCallback callback){
-        githubApi.listRepoIssues(username,repo_name).subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Observer<List<Issue>>() {
+        Log.e(TAG, String.valueOf(username));
+        Log.e(TAG, String.valueOf(repo_name));
+
+        githubApi.listRepoIssues(username,repo_name).subscribeOn(rx.schedulers.Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new rx.Observer<List<Issue>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onCompleted() {
 
                     }
-
                     @Override
                     public void onNext(List<Issue> value) {
+                        Log.e(TAG, String.valueOf(value));
                         callback.onSuccess(value);
                     }
 
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e(TAG, e.toString());
                         callback.onError();
                     }
 
-                    @Override
-                    public void onComplete() {
-
-                    }
                 });
     }
 }

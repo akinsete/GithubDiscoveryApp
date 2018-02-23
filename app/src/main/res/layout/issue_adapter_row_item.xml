@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/issue_item_padding"
+    android:layout_height="wrap_content"
+    android:maxHeight="60dp">
+
+
+    <TextView
+        android:id="@+id/issue_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/created_date"
+        android:text="TextView" />
+
+    <TextView
+        android:layout_below="@+id/issue_name"
+        android:id="@+id/username"
+        android:textStyle="bold"
+        android:textSize="@dimen/issue_item_user_name_text_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/created_date"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/colorBlack"
+        android:text="Username" />
+
+    <TextView
+        android:id="@+id/created_date"
+        android:text="Issue Date"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/issue_body"
+        android:text="@string/issue_content"
+        android:layout_below="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGrey"/>
+</RelativeLayout>
