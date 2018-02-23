@@ -30,7 +30,10 @@ public class PresenterTests {
     SearchActivityPresenter presenter;
 
     List<Search> previousSearch = new ArrayList<>();
-    Search search = new Search("Sunday",-36,-47,"Abaranje");
+    Search search = new Search("Sunday","-36","-47","Abaranje");
+
+
+
 
     @Before
     public void setup(){
@@ -48,13 +51,6 @@ public class PresenterTests {
         presenter.setView(mockSearchView);
 
     }
-
-//
-//    @Test
-//    public void noInteractionWithView(){
-//        presenter.getPreviousSearch();
-//        verifyZeroInteractions(mockSearchView);
-//    }
 
 
     @Test
@@ -120,18 +116,18 @@ public class PresenterTests {
         verify(mockSearchView,times(1)).showSearchDialog();
 
         ///// Verify the model also tried saving the data
-        verify(mockSearchModel,times(1)).saveSearch("Akinsete",0,0,"");
+        verify(mockSearchModel,times(1)).saveSearch("Akinsete","0","0","");
     }
 
 
 
     @Test
     public void ensureSearchedTextRemainThesameWhenSaved(){
-        when(mockSearchView.getSearchText()).thenReturn("Akinsete");
+        when(mockSearchView.getSearchText()).thenReturn("Sunday");
 
         presenter.searchButtonClicked();
 
-        verify(mockSearchModel,never()).saveSearch("Sunday",0,0,"");
+        verify(mockSearchModel,never()).saveSearch("Akinsete","0","0","");
     }
 
 
