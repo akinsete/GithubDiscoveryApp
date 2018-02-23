@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 public interface GithubAPI {
 
     @GET("users/{user}/repos")
-    Observable<List<Repo>> listRepos(@Path("user") String user);
+    rx.Observable<List<Repo>> listRepos(@Path("user") String user);
 
     @GET("repos/{user}/{repo}/issues")
     rx.Observable<List<Issue>> listRepoIssues(@Path("user") String user, @Path("repo") String repo);

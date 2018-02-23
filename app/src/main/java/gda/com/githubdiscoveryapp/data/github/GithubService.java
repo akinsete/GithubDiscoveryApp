@@ -47,14 +47,10 @@ public class GithubService {
      * @param callback
      */
     public void getUserRepo(String username,final GithubService.getUserRepoListCallBack callback){
-        githubApi.listRepos(username).subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Observer<List<Repo>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
+        githubApi.listRepos(username)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(rx.schedulers.Schedulers.io())
+                .subscribe(new rx.Observer<List<Repo>>() {
                     @Override
                     public void onNext(List<Repo> value) {
                         Log.e(TAG, String.valueOf(value));
@@ -63,14 +59,14 @@ public class GithubService {
 
 
                     @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, e.toString());
-                        callback.onError();
+                    public void onCompleted() {
+
                     }
 
                     @Override
-                    public void onComplete() {
-
+                    public void onError(Throwable e) {
+                        Log.e(TAG, e.toString());
+                        callback.onError();
                     }
                 });
     }
@@ -86,7 +82,8 @@ public class GithubService {
         Log.e(TAG, String.valueOf(username));
         Log.e(TAG, String.valueOf(repo_name));
 
-        githubApi.listRepoIssues(username,repo_name).subscribeOn(rx.schedulers.Schedulers.io())
+        githubApi.listRepoIssues(username,repo_name)
+                .subscribeOn(rx.schedulers.Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new rx.Observer<List<Issue>>() {
                     @Override

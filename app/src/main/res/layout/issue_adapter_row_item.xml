@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:padding="@dimen/issue_item_padding"
-    android:layout_height="wrap_content"
-    android:maxHeight="60dp">
+<android.support.v7.widget.CardView android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="4dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    app:contentPadding="10dp"
+    android:minHeight="60dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/issue_name"
@@ -38,14 +45,12 @@
 
     <TextView
         android:id="@+id/issue_body"
+        android:textColor="@color/colorBlack"
         android:text="@string/issue_content"
         android:layout_below="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGrey"/>
 </RelativeLayout>
+
+</android.support.v7.widget.CardView>

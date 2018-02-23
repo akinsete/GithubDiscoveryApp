@@ -20,6 +20,6 @@ import static gda.com.githubdiscoveryapp.data.Constants.GoolgeAPIKey;
 public interface GeocodeAPI {
 
     @GET("geocode/json?key=AIzaSyAoASds49kqY_3y61wrhBbmFK14yNxS5GA")
-    Observable<GeocodeResult> reverseGeocodeObservables(@Query("latlng") String location);
+    rx.Observable<GeocodeResult> reverseGeocodeObservables(@Query("latlng") String location);
 
 }

@@ -1,5 +1,6 @@
 package gda.com.githubdiscoveryapp.repodetails;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -74,6 +76,10 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailA
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         issuesRecyclerView.setLayoutManager(mLayoutManager);
         issuesRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        issuesRecyclerView.setItemViewCacheSize(20);
+        issuesRecyclerView.setDrawingCacheEnabled(true);
+        issuesRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        issuesRecyclerView.setHasFixedSize(true);
         issuesRecyclerView.setAdapter(issuesAdapter);
     }
 
@@ -122,8 +128,20 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailA
 
     @Override
     public void goViewRepoOnGithub() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(repo.getGitUrl()));
-        startActivity(intent);
+        openWebPage(repo.getGitUrl());
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(repo.getGitUrl()));
+//        startActivity(intent);
+    }
+
+    public void openWebPage(String url) {
+        try {
+            Uri webpage = Uri.parse(url);
+            Intent myIntent = new Intent(Intent.ACTION_VIEW, webpage);
+            startActivity(myIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No application can handle this request. Please install a web browser or check your URL.",  Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -22,34 +22,40 @@ public class GeocoderService {
     }
 
 
-
+    /**
+     * Geocoder service call back interface
+     */
     public interface GetFormattedAddressCallback{
         void onSuccess(String address);
+
+        void onError(String error);
     }
 
+    /**
+     * Gte formatted address
+     * @param location
+     * @param callback
+     */
     public void  getFormattedAddress(String location,final GetFormattedAddressCallback callback){
          geocodeAPI.reverseGeocodeObservables(location)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io()).subscribe(new Observer<GeocodeResult>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
+                .subscribeOn(rx.schedulers.Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new rx.Observer<GeocodeResult>() {
                     @Override
                     public void onNext(GeocodeResult value) {
                         Log.i("geoResults",value.toString());
-                        callback.onSuccess(value.getResults().get(0).getFormattedAddress());
+                        if(value.getResults() != null && value.getResults().size() > 0){
+                            callback.onSuccess(value.getResults().get(0).getFormattedAddress());
+                        }
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                        callback.onError(e.toString());
                     }
                 });
 

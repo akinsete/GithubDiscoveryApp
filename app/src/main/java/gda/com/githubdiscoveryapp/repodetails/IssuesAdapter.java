@@ -49,7 +49,7 @@ public class IssuesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
 
-    private class IssueViewHolder extends RecyclerView.ViewHolder{
+    public class IssueViewHolder extends RecyclerView.ViewHolder{
         View view;
         @BindView(R.id.issue_name) TextView issue_name;
         @BindView(R.id.username) TextView username;

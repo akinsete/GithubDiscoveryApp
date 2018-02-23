@@ -126,6 +126,11 @@ public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
 
                 locationAddress = address;
             }
+
+            @Override
+            public void onError(String error) {
+
+            }
         });
     }
 
