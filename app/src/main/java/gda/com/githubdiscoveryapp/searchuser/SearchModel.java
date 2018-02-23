@@ -26,7 +26,7 @@ public class SearchModel implements SearchActivityMVP.Model {
     }
 
     @Override
-    public void saveSearch(String username, long latitude, long longitude, String address) {
+    public void saveSearch(String username, String latitude, String longitude, String address) {
         repository.saveSearch(new Search(username,latitude,longitude,address));
     }
 

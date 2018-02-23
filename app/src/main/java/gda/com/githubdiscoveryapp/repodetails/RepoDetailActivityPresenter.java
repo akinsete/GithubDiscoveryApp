@@ -1,5 +1,9 @@
 package gda.com.githubdiscoveryapp.repodetails;
 
+import java.util.List;
+
+import gda.com.githubdiscoveryapp.data.github.GithubService;
+import gda.com.githubdiscoveryapp.data.models.Issue;
 import gda.com.githubdiscoveryapp.searchuser.SearchActivityMVP;
 
 /**
@@ -20,4 +24,23 @@ public class RepoDetailActivityPresenter implements RepoDetailActivityMVP.Presen
     public void setView(RepoDetailActivityMVP.View view) {
         this.view = view;
     }
+
+
+    @Override
+    public void loadRepoIssues(String name, String repo_name) {
+        model.getRepoIssues(name, repo_name, new GithubService.RepoIssuesCallback() {
+            @Override
+            public void onSuccess(List<Issue> issues) {
+                if(view != null){
+                    view.displayRepoIssues(issues);
+                }
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
 }

@@ -2,6 +2,7 @@ package gda.com.githubdiscoveryapp.searchuser;
 
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,14 @@ import gda.com.githubdiscoveryapp.data.models.Search;
 
 public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
 
+    private static final String TAG = "searchPresenter";
+
     @Nullable
     private SearchActivityMVP.View view;
     private SearchActivityMVP.Model model;
 
-    private long latitude = 0;
-    private long longitude = 0;
+    private String latitude = "0";
+    private String longitude = "0";
     private String locationAddress = "";
 
     ///// Constructor injector ///
@@ -83,9 +86,11 @@ public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
         });
     }
 
+    /**
+     * Get previous searced username
+     */
     @Override
     public void getPreviousSearch() {
-
         List<Search> previousSearches = model.previousSearches();
 
         if(previousSearches == null || previousSearches.size() == 0) {
@@ -99,14 +104,26 @@ public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
         }
     }
 
+
+    /**
+     * Store's users current location.
+     * @param latitude
+     * @param longitude
+     */
     @Override
-    public void setUserLocation(long latitude, long longitude) {
+    public void setUserLocation(String latitude, String longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
+
+        Log.e(TAG,String.valueOf(latitude));
+        Log.e(TAG,String.valueOf(longitude));
 
         this.model.getReverseGeocodedAddress(String.valueOf(latitude)+" "+String.valueOf(longitude), new GeocoderService.GetFormattedAddressCallback() {
             @Override
             public void onSuccess(String address) {
+
+                Log.e(TAG,String.valueOf(address));
+
                 locationAddress = address;
             }
         });

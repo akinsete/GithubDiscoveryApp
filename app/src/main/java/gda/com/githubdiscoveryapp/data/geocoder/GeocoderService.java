@@ -38,6 +38,7 @@ public class GeocoderService {
 
                     @Override
                     public void onNext(GeocodeResult value) {
+                        Log.i("geoResults",value.toString());
                         callback.onSuccess(value.getResults().get(0).getFormattedAddress());
                     }
 

@@ -9,11 +9,15 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gda.com.githubdiscoveryapp.R;
+import gda.com.githubdiscoveryapp.data.models.Issue;
 import gda.com.githubdiscoveryapp.data.models.Repo;
 import gda.com.githubdiscoveryapp.di.App;
 
@@ -33,6 +37,7 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailA
     @BindView(R.id.owner_avatar) ImageView owner_avatar;
 
     Repo repo;
+    List<Issue> issues = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,10 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailA
     protected void onResume() {
         super.onResume();
         presenter.setView(this);
+
+        if(repo != null){
+            presenter.loadRepoIssues(repo.getFullName(),repo.getName());
+        }
     }
 
 
@@ -87,5 +96,12 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailA
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void displayRepoIssues(List<Issue> issues) {
+        this.issues = issues;
+
+
     }
 }

@@ -45,8 +45,8 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_USERNAME + " TEXT,"
                 + KEY_ADDRESS + " TEXT,"
-                + KEY_LATITUDE + " INTEGER,"
-                + KEY_LONGITUDE + " INTEGER,"
+                + KEY_LATITUDE + " TEXT,"
+                + KEY_LONGITUDE + " TEXT,"
                 + KEY_DATE + " INTEGER" + ")";
         db.execSQL(CREATE_SEARCH_TABLE);
     }
@@ -75,8 +75,8 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
                 if(cursor != null) {
                     Search search = new Search(
                             cursor.getString(cursor.getColumnIndex(KEY_USERNAME)),
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_LATITUDE))),
-                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_LONGITUDE))),
+                            cursor.getString(cursor.getColumnIndex(KEY_LATITUDE)),
+                            cursor.getString(cursor.getColumnIndex(KEY_LONGITUDE)),
                             cursor.getString(cursor.getColumnIndex(KEY_ADDRESS))
                     );
                     search.setDate(Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_DATE))));

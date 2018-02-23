@@ -37,21 +37,20 @@ public interface SearchActivityMVP {
 
     interface Presenter{
 
-
         void setView(SearchActivityMVP.View view);
 
         void searchButtonClicked();
 
         void getPreviousSearch();
 
-        void setUserLocation(long latitude,long longitude);
+        void setUserLocation(String latitude, String longitude);
 
     }
 
     interface Model{
 
 
-        void saveSearch(String username, long latitude, long longitude, String address);
+        void saveSearch(String username, String latitude, String longitude, String address);
 
         List<Search> previousSearches();
 

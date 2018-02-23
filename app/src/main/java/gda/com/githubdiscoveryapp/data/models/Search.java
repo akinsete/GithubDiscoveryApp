@@ -9,12 +9,12 @@ public class Search {
 
     private String username;
     private long date;
-    private long latitude;
-    private long longitude;
+    private String latitude;
+    private String longitude;
     private String address;
 
 
-    public Search(String username, long latitude, long longitude, String address) {
+    public Search(String username, String latitude, String longitude, String address) {
         this.username = username;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -37,19 +37,19 @@ public class Search {
         this.date = date;
     }
 
-    public long getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 

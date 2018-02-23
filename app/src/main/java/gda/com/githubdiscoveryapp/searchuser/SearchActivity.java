@@ -153,13 +153,15 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
     private void startRequestLocationUpdate() {
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if(mLocation != null){
-            presenter.setUserLocation((long)mLocation.getLatitude(),(long)mLocation.getLongitude());
+            presenter.setUserLocation(String.valueOf(mLocation.getLatitude()),String.valueOf(mLocation.getLongitude()));
         }else{
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setInterval(1000);
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest,this);
         }
+
+
     }
 
     @Override
@@ -257,7 +259,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
     public void onLocationChanged(Location location) {
         mLocation = location;
         if(mLocation != null){
-            presenter.setUserLocation((long)mLocation.getLatitude(),(long)mLocation.getLongitude());
+            presenter.setUserLocation(String.valueOf(mLocation.getLatitude()),String.valueOf(mLocation.getLongitude()));
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,this);
         }
     }
