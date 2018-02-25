@@ -6,12 +6,14 @@
       <w>githubdiscoveryapp</w>
       <w>gson</w>
       <w>latlng</w>
+      <w>localdatabase</w>
       <w>localstorage</w>
       <w>previoussearch</w>
       <w>recyclerview</w>
       <w>repodetails</w>
       <w>searchuser</w>
       <w>thesame</w>
+      <w>unsubscribe</w>
       <w>usersrepolist</w>
     </words>
   </dictionary>

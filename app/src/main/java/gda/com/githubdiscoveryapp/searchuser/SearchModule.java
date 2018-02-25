@@ -2,9 +2,13 @@ package gda.com.githubdiscoveryapp.searchuser;
 
 import android.content.Context;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
+import gda.com.githubdiscoveryapp.data.geocoder.GeocodeAPI;
 import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
+import gda.com.githubdiscoveryapp.data.github.GithubAPI;
 import gda.com.githubdiscoveryapp.data.github.GithubService;
 
 /**
@@ -23,16 +27,20 @@ public class SearchModule {
 
 
     @Provides
-    public SearchActivityMVP.Model provideSearchActivityModel(SearchRepository searchRepository, GeocoderService geocoderService, GithubService githubService){
-        return new SearchModel(searchRepository,geocoderService,githubService);
+    public SearchActivityMVP.Model provideSearchActivityModel(Repository repository){
+        return new SearchModel(repository);
     }
 
 
     @Provides
-    public SearchRepository provideSearchRepository(Context context){
-        return new MemoryRepository(context);
+    public Repository provideRepository(GithubAPI githubAPI,GeocodeAPI geocodeApi,LocalDatabaseHelper localDatabaseHelperApi){
+        return new SearchRepository(githubAPI,geocodeApi,localDatabaseHelperApi);
     }
 
-
+    @Provides
+    @Singleton
+    public LocalDatabaseHelper provideLocalDatabaseHelper(Context context){
+        return new LocalDatabaseHelper(context);
+    }
 
 }

@@ -6,7 +6,9 @@ import java.util.List;
 import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
 import gda.com.githubdiscoveryapp.data.github.GithubService;
 import gda.com.githubdiscoveryapp.data.models.Repo;
+import gda.com.githubdiscoveryapp.data.models.Result;
 import gda.com.githubdiscoveryapp.data.models.Search;
+import rx.Observable;
 
 /**
  * Created by sundayakinsete on 21/02/2018.
@@ -45,17 +47,18 @@ public interface SearchActivityMVP {
 
         void setUserLocation(String latitude, String longitude);
 
+        void rxUnsubscribe();
     }
 
     interface Model{
-
 
         void saveSearch(String username, String latitude, String longitude, String address);
 
         List<Search> previousSearches();
 
-        void getGithubRepositories(String username, GithubService.getUserRepoListCallBack getUserRepoListCallBack);
+        Observable<Result> getReversedGeocodedAddress(String location);
 
-        void getReverseGeocodedAddress(String location, GeocoderService.GetFormattedAddressCallback callback);
+        Observable<List<Repo>> getUserGithubRepositories(String username);
+
     }
 }

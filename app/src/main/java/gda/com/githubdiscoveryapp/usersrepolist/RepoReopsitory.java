@@ -5,4 +5,5 @@ package gda.com.githubdiscoveryapp.usersrepolist;
  */
 
 public interface RepoReopsitory {
+
 }
