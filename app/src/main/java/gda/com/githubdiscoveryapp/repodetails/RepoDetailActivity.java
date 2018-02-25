@@ -128,7 +128,7 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailA
 
     @Override
     public void goViewRepoOnGithub() {
-        openWebPage(repo.getGitUrl());
+        openWebPage(repo.getHtmlUrl());
 //        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(repo.getGitUrl()));
 //        startActivity(intent);
     }
