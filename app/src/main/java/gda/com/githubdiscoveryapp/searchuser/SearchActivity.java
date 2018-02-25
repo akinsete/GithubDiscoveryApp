@@ -93,6 +93,9 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
     };
 
 
+    /**
+     * Setup recycler view
+     */
     private void setupRecyclerView() {
         previousSearchAdapter = new PreviousSearchAdapter(searches,searchItemListener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -124,7 +127,10 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+        presenter.rxUnsubscribe();
+        searches.clear();
     }
+
 
     private synchronized void setupGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -132,7 +138,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
     }
 
     @Override
@@ -164,8 +169,6 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest,this);
         }
-
-
     }
 
     @Override

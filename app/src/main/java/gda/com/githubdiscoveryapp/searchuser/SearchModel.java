@@ -1,13 +1,13 @@
 package gda.com.githubdiscoveryapp.searchuser;
 
-import android.util.Log;
-
 import java.util.List;
 
 import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
 import gda.com.githubdiscoveryapp.data.github.GithubService;
 import gda.com.githubdiscoveryapp.data.models.Repo;
+import gda.com.githubdiscoveryapp.data.models.Result;
 import gda.com.githubdiscoveryapp.data.models.Search;
+import rx.Observable;
 
 /**
  * Created by sundayakinsete on 21/02/2018.
@@ -15,14 +15,10 @@ import gda.com.githubdiscoveryapp.data.models.Search;
 
 public class SearchModel implements SearchActivityMVP.Model {
 
-    SearchRepository repository;
-    GeocoderService geocoderService;
-    GithubService githubService;
+    Repository repository;
 
-    public SearchModel(SearchRepository repository,GeocoderService geocoderService,GithubService githubService) {
+    public SearchModel(Repository repository) {
         this.repository = repository;
-        this.geocoderService = geocoderService;
-        this.githubService = githubService;
     }
 
     @Override
@@ -35,14 +31,14 @@ public class SearchModel implements SearchActivityMVP.Model {
         return repository.getPreviousSearches();
     }
 
-
     @Override
-    public void getGithubRepositories(String username,GithubService.getUserRepoListCallBack callBack) {
-        githubService.getUserRepo(username,callBack);
+    public Observable<Result> getReversedGeocodedAddress(String location) {
+        return repository.getGeocodedAddressFromMemory(location).switchIfEmpty(repository.getGeocodedAddressFromNetwork(location));
     }
 
     @Override
-    public void getReverseGeocodedAddress(String location, GeocoderService.GetFormattedAddressCallback callback) {
-        geocoderService.getFormattedAddress(location,callback);
+    public Observable<List<Repo>> getUserGithubRepositories(String username) {
+        return repository.getSearchResultsFromMemory(username).switchIfEmpty(repository.getSearchResultsFromNetwork(username));
     }
+
 }

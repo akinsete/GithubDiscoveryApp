@@ -8,9 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gda.com.githubdiscoveryapp.data.geocoder.GeocoderService;
-import gda.com.githubdiscoveryapp.data.github.GithubService;
 import gda.com.githubdiscoveryapp.data.models.Repo;
+import gda.com.githubdiscoveryapp.data.models.Result;
 import gda.com.githubdiscoveryapp.data.models.Search;
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by sundayakinsete on 21/02/2018.
@@ -28,7 +33,8 @@ public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
     private String longitude = "0";
     private String locationAddress = "";
 
-    ///// Constructor injector ///
+    private Subscription subscription = null;
+
     public SearchActivityPresenter(SearchActivityMVP.Model model) {
         this.model = model;
     }
@@ -59,35 +65,47 @@ public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
         }
     }
 
+    /**
+     * Start an RxJava subscription to get users repo list
+     * @param username
+     */
     private void proceedToSearch(String username) {
-        model.getGithubRepositories(username, new GithubService.getUserRepoListCallBack() {
-            @Override
-            public void onSuccess(List<Repo> repos) {
-                if(view != null){
+        subscription = model
+                .getUserGithubRepositories(username)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Repo>>() {
+                    @Override
+                    public void onCompleted() {
 
-                    if(repos.size() > 0){
-                        view.hideSearchDialog();
-
-                        view.navigateToRepoListView((ArrayList<Repo>) repos);
-                    }else{
-                        view.showNoUserNameFound();
                     }
 
-                }
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        if(view != null){
+                            view.showNoUserNameFound();
+                            view.hideSearchDialog();
+                        }
+                    }
 
-            @Override
-            public void onError() {
-                if(view != null){
-                    view.showNoUserNameFound();
-                    view.hideSearchDialog();
-                }
-            }
-        });
+                    @Override
+                    public void onNext(List<Repo> repos) {
+                        if(view != null){
+
+                            if(repos.size() > 0){
+                                view.hideSearchDialog();
+
+                                view.navigateToRepoListView((ArrayList<Repo>) repos);
+                            }else{
+                                view.showNoUserNameFound();
+                            }
+                        }
+                    }
+                });
     }
 
     /**
-     * Get previous searced username
+     * Get previous searched username
      */
     @Override
     public void getPreviousSearch() {
@@ -106,7 +124,7 @@ public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
 
 
     /**
-     * Store's users current location.
+     * Store's users current location and run reverse geocode on the co-ordinate to get address.
      * @param latitude
      * @param longitude
      */
@@ -115,23 +133,32 @@ public class SearchActivityPresenter implements SearchActivityMVP.Presenter{
         this.latitude = latitude;
         this.longitude = longitude;
 
-        Log.e(TAG,String.valueOf(latitude));
-        Log.e(TAG,String.valueOf(longitude));
+        subscription = model.getReversedGeocodedAddress(String.valueOf(latitude)+" "+String.valueOf(longitude))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Result>() {
+                    @Override
+                    public void call(Result result) {
+                        if(result != null) {
+                            locationAddress = result.getFormattedAddress();
+                        }
 
-        this.model.getReverseGeocodedAddress(String.valueOf(latitude)+" "+String.valueOf(longitude), new GeocoderService.GetFormattedAddressCallback() {
-            @Override
-            public void onSuccess(String address) {
+                        Log.e(TAG,String.valueOf(locationAddress));
+                    }
+                });
+    }
 
-                Log.e(TAG,String.valueOf(address));
 
-                locationAddress = address;
+    /**
+     * On stop of the activity subscription should be removed,
+     */
+    @Override
+    public void rxUnsubscribe() {
+        if (subscription != null) {
+            if (!subscription.isUnsubscribed()) {
+                subscription.unsubscribe();
             }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        });
+        }
     }
 
 

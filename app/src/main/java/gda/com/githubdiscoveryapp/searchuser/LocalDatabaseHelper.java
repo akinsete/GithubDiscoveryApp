@@ -16,9 +16,9 @@ import gda.com.githubdiscoveryapp.data.models.Search;
  */
 
 /**
- * Localstorage for previous searches
+ * Localstorage for previous searched username
  */
-public class MemoryRepository extends SQLiteOpenHelper implements SearchRepository {
+public class LocalDatabaseHelper extends SQLiteOpenHelper implements LocaldatabaseRepository {
 
 
     private static final int DATABASE_VERSION = 4;
@@ -35,7 +35,7 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
     private static final String KEY_ADDRESS = "address";
 
 
-    public MemoryRepository(Context context) {
+    public LocalDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -106,7 +106,8 @@ public class MemoryRepository extends SQLiteOpenHelper implements SearchReposito
     }
 
 
-    public  boolean checkIsDataAlreadyInDBorNot(String fieldValue) {
+
+    private  boolean checkIsDataAlreadyInDBorNot(String fieldValue) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String Query = "Select * from " + TABLE_SEARCH + " where username = '" + fieldValue + "'";

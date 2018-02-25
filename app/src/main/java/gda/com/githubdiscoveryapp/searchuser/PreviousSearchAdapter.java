@@ -87,6 +87,9 @@ public class PreviousSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
+    /**
+     * Interface to capture item clicked
+     */
     public interface OnSearchItemClickListener {
 
         void onItemClick(Search search);
