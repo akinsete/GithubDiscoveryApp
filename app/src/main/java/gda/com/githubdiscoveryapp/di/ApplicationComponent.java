@@ -26,7 +26,6 @@ public interface ApplicationComponent {
 
     void inject (RepoDetailActivity target);
 
-    //void inject (SearchActivityPresenter presenter);
-
 }
+
 

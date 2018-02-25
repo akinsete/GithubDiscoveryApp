@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,8 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
     @Inject
     SearchActivityMVP.Presenter presenter;
 
+
+
     ProgressDialog progressDialog;
     private GoogleApiClient mGoogleApiClient;
     private Location mLocation;
@@ -74,6 +77,7 @@ public class SearchActivity extends AppCompatActivity implements SearchActivityM
                 presenter.searchButtonClicked();
             }
         });
+
     }
 
 
