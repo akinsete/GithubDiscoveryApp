@@ -37,11 +37,10 @@ public class SearchModule {
         return new SearchRepository(githubAPI,geocodeApi,localDatabaseHelperApi);
     }
 
-
     @Provides
     @Singleton
     public LocalDatabaseHelper provideLocalDatabaseHelper(Context context){
         return new LocalDatabaseHelper(context);
     }
-    
+
 }
